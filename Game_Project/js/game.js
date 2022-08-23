@@ -1,9 +1,15 @@
+
 class Game {
 
         constructor () {
             this.background = new Background()
             this.backgroundImages
-            this.player = new Player ()
+            this.player = new Player()
+            this.playerImage
+            //this.items = new Item()
+            //this.itemsImage 
+            this.obstacles =  []  //new Obstacle()
+            this.obstacleImage
         }
 
         preload() {
@@ -70,11 +76,40 @@ class Game {
                     }
                   ]
             this.playerImage = loadImage("assets/player/Owlet_Monster.png")
+
+            //this.itemsImage = loadImage("")
+
+            this.obstacleImage = loadImage("assets/obstacles/Boar.png")
         }
 
         draw() {
             clear()
             this.background.draw()
             this.player.draw()
+
+            /* fixed Framecount:
+            if (frameCount % 90 === 0){
+            this.obstacles.push(new Obstacle(this.obstacleImage))}
+            */
+        
+            if  (frameCount % random(120, 180).toFixed(0) === 0 ){
+              this.obstacles.push(new Obstacle(this.obstacleImage))}
+            
+            this.obstacles = this.obstacles.filter(obstacle => {
+              if (obstacle.collision(this.player) || obstacle.x < 0 - obstacle.width) {
+                // last bit is to remove from the array when it leaves the screen so the array doesnt grow endlessly
+                return false
+              } else {
+                
+                // still have to implement a healthbar over html and stuff 
+                return true
+              }
+            })
+
+            this.obstacles.forEach(function(obstacle){obstacle.draw()})
+
+            
+
+            //this.obstacles.filter(function())
         }
 }
