@@ -1,6 +1,7 @@
 class Player {
     constructor(){
-        this.triangleCleared 
+        this.itemCount = 0
+        this.triangleShown = false
         this.health = 100
         this.gravity = 1    
         this.velocity = 0
@@ -30,34 +31,60 @@ class Player {
     if (this.x <= 50){
         this.x =  50};
     
-    //this.Clear()
 
+    if (this.triangleShown === true){
+        return triangle(this.x + 50, this.y + 50, this.x+150, this.y+60, this.x+150, this.y-25)} 
+ // define the different coordinates as variables to clean everything up
     }
+
 
     jump(){
         this.velocity =  -20
     }
 
     Dash(){
-
         // maybe here add a if statement that links the dash to a counter 
         // that counter increases when you collect a power up and decreases when you use the dash 
-        
         this.x += 110
     }
 
-    Clear(){
-        /** 
-         * when invoked draws a triangle on the canavs  //a certain area on the canvas is selected/defined 
-         * this space is determined by the player position 
-         * then just add to the filter function the area
-         * then remove the triangle and set triangle to high opacity at first before you add the animation
-        */
-        console.log("cleared")
+   
+    triangleCollision(obstacle){
+    let obstacleHitboxX = obstacle.x + obstacle.width/2
+	let obstacleHitboxY = obstacle.y + obstacle.height /2  
 
-        
-
-       this.triangleCleared = triangle(30, 75, 58, 20, 86, 75)
-
+    if ((obstacleHitboxX < this.x + 150 && obstacleHitboxX > this.x + 50 ) && (obstacleHitboxY < this.y + 60 && obstacleHitboxY > this.y - 25) && (this.triangleShown === true)){
+        console.log("hit")
+        game.player.health += 10
+        console.log(game.player.health)
+    return true
+    }else {
+        return false
     }
+    }
+   
+
+
+
+    /*
+    clearTriangle(trianglePosition){
+        let obstacleHitboxX = game.obstacle.x + game.obstacle.width / 2
+		let obstacleHitboxY = game.obstacle.y + game.obstacles.height / 2
+
+
+        this.x + 50, this.y + 50, this.x+150, this.y+60, this.x+150, this.y-25
+        let triangleHitboxX = (this.x + 50) playerPosition.width / 2
+		let triangleHitboxY = playerPosition.y + playerPosition.height / 2
+
+        if (dist(obstacleHitboxX, obstacleHitboxY, playerHitboxX, playerHitboxY) > 25) {
+			return false
+		} else {
+			// increment the score
+			game.player.health -= 10
+			console.log(game.player.health)
+			return true
+		}
+    }
+    */
+    
 }

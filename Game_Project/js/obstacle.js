@@ -13,13 +13,14 @@ class Obstacle {
         image(this.image, this.x, this.y, this.width, this.height)
     }
 
-    collision (playerPosition){
+    playerCollision (playerPosition){
         let obstacleHitboxX = this.x + this.width / 2
 		let obstacleHitboxY = this.y + this.height / 2
         // devided by two because you need the center to calculate a distance/the radius of the hitbox
 
         let playerHitboxX = playerPosition.x + playerPosition.width / 2
 		let playerHitboxY = playerPosition.y + playerPosition.height / 2
+        // the playerPosition is just a placeholder/parameter that is inserted at the invokation later within the player class
 
         if (dist(obstacleHitboxX, obstacleHitboxY, playerHitboxX, playerHitboxY) > 25) {
 			return false
@@ -31,6 +32,7 @@ class Obstacle {
 		}
 	}
 
+   
     }
 
 
